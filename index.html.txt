@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteos El Bola - ¡Participa!</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Sorteos El Bola ???</h1>
+        <p>¡Compra tu boleto y gana premios increíbles!</p>
+    </header>
+
+    <main>
+        <section class="raffle-card">
+            <h2>Próximo Sorteo: ¡Una Motocicleta Yamaha! ???</h2>
+            <p><strong>Fecha del Sorteo:</strong> Basado en el sorteo de la Lotería Nacional para la Asistencia Pública, de la fecha 01/09/2025.</p>
+            <p><strong>Cómo ganas:</strong> Tu boleto gana si sus últimos dígitos coinciden con los del primer premio de la Lotería Nacional.</p>
+        </section>
+
+        <section class="ticket-selection">
+            <h2>Selecciona tu boleto</h2>
+            <div id="ticket-grid" class="ticket-grid">
+                </div>
+            <p id="selected-ticket" class="selected-ticket-message">No has seleccionado ningún boleto.</p>
+            <button id="buy-button" class="buy-button" disabled>Comprar boleto seleccionado</button>
+        </section>
+
+        <section class="raffle-form">
+            <h2>Ingresa tus datos</h2>
+            <form id="raffleForm">
+                <div class="form-group">
+                    <label for="name">Nombre completo:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo electrónico:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <button type="submit">Confirmar Compra</button>
+            </form>
+            <p id="confirmation-message" class="message"></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Sorteos El Bola (Simulación).</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
