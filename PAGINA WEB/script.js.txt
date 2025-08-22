@@ -1,0 +1,75 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const ticketGrid = document.getElementById('ticket-grid');
+    const selectedTicketMessage = document.getElementById('selected-ticket');
+    const buyButton = document.getElementById('buy-button');
+    const raffleForm = document.getElementById('raffleForm');
+    const confirmationMessage = document.getElementById('confirmation-message');
+    
+    // Simular un conjunto de boletos vendidos
+    const soldTickets = new Set(['12345', '67890', '00101', '55555']);
+    let selectedTicketNumber = null;
+
+    // Generar 100 boletos de ejemplo (00000 a 00099)
+    for (let i = 0; i < 100; i++) {
+        const ticketNumber = String(i).padStart(5, '0');
+        const ticketDiv = document.createElement('div');
+        ticketDiv.className = 'ticket';
+        ticketDiv.textContent = ticketNumber;
+        ticketDiv.dataset.number = ticketNumber;
+
+        if (soldTickets.has(ticketNumber)) {
+            ticketDiv.classList.add('sold');
+        } else {
+            ticketDiv.addEventListener('click', () => {
+                // Eliminar la clase 'selected' de todos los boletos
+                document.querySelectorAll('.ticket').forEach(t => t.classList.remove('selected'));
+                
+                // Seleccionar el boleto clickeado
+                ticketDiv.classList.add('selected');
+                selectedTicketNumber = ticketNumber;
+                selectedTicketMessage.textContent = `Has seleccionado el boleto: ${selectedTicketNumber}`;
+                buyButton.disabled = false;
+            });
+        }
+        ticketGrid.appendChild(ticketDiv);
+    }
+
+    // Manejar el botón de compra
+    buyButton.addEventListener('click', () => {
+        if (selectedTicketNumber) {
+            // Muestra el formulario para ingresar datos
+            document.querySelector('.raffle-form').style.display = 'block';
+            document.querySelector('.ticket-selection').style.display = 'none';
+        }
+    });
+
+    // Manejar el envío del formulario
+    raffleForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+
+        // Simula la compra y muestra un mensaje
+        confirmationMessage.textContent = `¡Felicidades, ${name}! Tu boleto número ${selectedTicketNumber} ha sido reservado. Te enviamos la confirmación al correo electrónico. ¡Mucha suerte!`;
+        confirmationMessage.style.color = '#4CAF50';
+        raffleForm.reset();
+        buyButton.disabled = true;
+        
+        // Simular que el boleto ha sido vendido después de la compra
+        const purchasedTicket = document.querySelector(`.ticket[data-number="${selectedTicketNumber}"]`);
+        if (purchasedTicket) {
+            purchasedTicket.classList.add('sold');
+            purchasedTicket.classList.remove('selected');
+            purchasedTicket.removeEventListener('click', purchasedTicket.onclick);
+        }
+
+        // Limpia el mensaje de confirmación después de un tiempo
+        setTimeout(() => {
+            confirmationMessage.textContent = '';
+            // Reinicia la interfaz
+            document.querySelector('.raffle-form').style.display = 'none';
+            document.querySelector('.ticket-selection').style.display = 'block';
+            selectedTicketMessage.textContent = 'No has seleccionado ningún boleto.';
+        }, 8000);
+    });
+});
